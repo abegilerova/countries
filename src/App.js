@@ -1,24 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import SearchCountry from './components/SearchCountry';
 
-function App() {
+const App = () => {
+
+
+  const [countries, setCountries] = useState([]);
+  const [countrySearch, setCountrySearch] = useState('');
+  const [foundCountry, setFoundCountry] = useState('');
+
+
+
+  const all = 'https://restcountries.eu/rest/v2/all';
+  useEffect(() => {
+    // console.log('effect')
+    axios
+      .get(all)
+      .then(response => {
+        // console.log('promise fulfilled')
+        setCountries(response.data)
+      })
+  }, [])
+  // console.log('render', countries.length, 'countries');
+
+
+
+  // const displayCountryNames = () => countryNames.map(countryName => <li>{countryName}</li>);
+
+  const handleCountrySearch = (event) => {
+    setCountrySearch(event.target.value);
+    console.log("country search", countrySearch);
+    const countryNames = countries.map(country => country.name);
+    const found = countryNames.filter(countryName => countryName.includes(countrySearch));
+    setFoundCountry(found);
+
+  }
+
+  console.log("foundCountry", foundCountry);
+
+  const displayFoundCountry = () => foundCountry.length > 0 ? <li>{foundCountry}</li> : <li>no search</li>;
+
+
+
+
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SearchCountry countrySearch={countrySearch} handleCountrySearch={handleCountrySearch} />
+      <ul>
+        {displayFoundCountry()}
+      </ul>
     </div>
   );
 }
