@@ -11,7 +11,13 @@ const SearchResult = ({ countries, countrySearch, setCountrySearch }) => {
     if (found.length > 10) {
         return <div>Too many matches</div>
     } else if (found.length > 1) {
-        return (found.map(country => <div>{country.name}</div>))
+        return (found.map(country =>
+
+            <div>
+                {country.name}
+                <button onClick={() => setCountrySearch(country.name)}>Show</button>
+            </div>))
+
     } else if (found.length === 1) {
         return (
             <Country foundCountry={found[0]} />
