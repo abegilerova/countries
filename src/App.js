@@ -3,6 +3,7 @@ import axios from 'axios';
 import SearchCountry from './components/SearchCountry';
 import SearchResult from './components/SearchResult';
 
+
 const App = () => {
 
   const [countries, setCountries] = useState([]);
@@ -10,6 +11,7 @@ const App = () => {
   const [foundCountry, setFoundCountry] = useState('');
 
   const all = 'https://restcountries.eu/rest/v2/all';
+
   useEffect(() => {
     // console.log('effect')
     axios
