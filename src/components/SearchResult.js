@@ -13,7 +13,7 @@ const SearchResult = ({ countries, countrySearch, setCountrySearch }) => {
     } else if (found.length > 1) {
         return (found.map(country =>
 
-            <div>
+            <div key={country.name}>
                 {country.name}
                 <button onClick={() => setCountrySearch(country.name)}>Show</button>
             </div>))

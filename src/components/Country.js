@@ -6,7 +6,7 @@ const secrets = require('../secrets.json');
 
 const Country = ({ foundCountry }) => {
 
-    const languages = foundCountry.languages.map(language => <li>{language.name}</li>)
+    const languages = foundCountry.languages.map(language => <li key={language.name}>{language.name}</li>)
     const [weather, setWeather] = useState(null);
 
     const weatherHook = () => {
